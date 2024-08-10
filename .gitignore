@@ -1,4 +1,0 @@
-*.backend*
-*.provider*
-*.terraform.lock.hcl*
-*.terraform*
