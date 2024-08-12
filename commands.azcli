@@ -1,0 +1,11 @@
+az login --tenant provide your tenant id # login to your tenant
+az account set -s "Replace with your subscription name" # Set the subscription id
+az group create --location "uksouth" -n "Terraformstate-RG01" # Create a resource group for backend state storage account
+az storage account create -g  "Terraformstate-RG01" --kind "StorageV2" -l "uksouth" -n  "strgaccountrfrmstate01" --sku "Standard_LRS" # Create the backend state storage account
+az storage container create --name "tfstate" --account-name "strgaccountrfrmstate01" # Create a blob container in the backend state storage account
+terraform init -backend-config="access_key=$(az storage account keys list --resource-group "Terraformstate-RG01" --account-name "strgaccountrfrmstate01" --query '[0].value' - tsv)" # Initiate terraform using the backend state storage account
+
+
+
+
+
