@@ -1,5 +1,5 @@
 *.backend
-*.provider
+*.provider.tf
 *.terraform.lock.hcl
 *.terraform
 **/
