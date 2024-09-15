@@ -2,4 +2,5 @@
 *.provider
 *.terraform.lock.hcl
 *.terraform
+**/
 
