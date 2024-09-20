@@ -1,19 +1,19 @@
 //Create a resource group for the lab
 
 resource "azurerm_resource_group" "azcerheadlabrg" {
-    location = "uksouth"
-    name = "azcertheadlab-rg01"
-  
+  location = var.location
+  name     = var.azcertheadrgname
+
 }
 
 //Create Vnet
 
 resource "azurerm_virtual_network" "azcertheadlabvnet" {
 
-  name                = "azvnet_lab01"
+  name                = var.vnet1name
   resource_group_name = azurerm_resource_group.azcerheadlabrg.name
   location            = azurerm_resource_group.azcerheadlabrg.location
-  address_space       = ["192.168.0.0/24"]
+  address_space       = var.vnet1addressSpace
 
 }
 
@@ -23,26 +23,26 @@ resource "azurerm_virtual_network" "azcertheadlabvnet" {
 resource "azurerm_subnet" "azcertheadlabsub1" {
   virtual_network_name = azurerm_virtual_network.azcertheadlabvnet.name
   resource_group_name  = azurerm_resource_group.azcerheadlabrg.name
-  name                 = "workloadsubnet"
-  address_prefixes     = ["192.168.0.0/26"]
+  name                 = var.workloadSubnetName
+  address_prefixes     = var.workloadSubneAddressSpace
 
 }
 
 resource "azurerm_subnet" "azcertheadlabgatewaysubnet" {
-  name                 = "GatewaySubnet"
-  address_prefixes     = ["192.168.0.64/26"]
+  name                 = var.GatewaySubnetName
+  address_prefixes     = var.GatewaySubnetNameAddressSpace
   resource_group_name  = azurerm_resource_group.azcerheadlabrg.name
   virtual_network_name = azurerm_virtual_network.azcertheadlabvnet.name
 }
 resource "azurerm_subnet" "azcertheadfirewallsubnet" {
-  name                 = "AzureFirewallSubnet"
-  address_prefixes     = ["192.168.0.128/26"]
+  name                 = var.AzureFirewallSubnetName
+  address_prefixes     = var.AzureFirewallSubnetAddressSpace
   resource_group_name  = azurerm_resource_group.azcerheadlabrg.name
   virtual_network_name = azurerm_virtual_network.azcertheadlabvnet.name
 }
 resource "azurerm_subnet" "azcertheadfirewallmgmtsubnet" {
-  name                 = "AzureFirewallManagementSubnet"
-  address_prefixes     = ["192.168.0.192/26"]
+  name                 = var.AzureFirewallManagmentSubnetName
+  address_prefixes     = var.AzureFirewallManagmentSubnetAddressSpace
   resource_group_name  = azurerm_resource_group.azcerheadlabrg.name
   virtual_network_name = azurerm_virtual_network.azcertheadlabvnet.name
 }
