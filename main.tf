@@ -19,31 +19,11 @@ resource "azurerm_virtual_network" "azcertheadlabvnet" {
 
 //Create Subnets
 
-
-resource "azurerm_subnet" "azcertheadlabsub1" {
+resource "azurerm_subnet" "subnet_certheadlab" {
+  for_each = var.subnets
+  name = each.value["name"]
+  address_prefixes = each.value["address_prefixes"]
+  resource_group_name = azurerm_resource_group.azcerheadlabrg.name
   virtual_network_name = azurerm_virtual_network.azcertheadlabvnet.name
-  resource_group_name  = azurerm_resource_group.azcerheadlabrg.name
-  name                 = var.workloadSubnetName
-  address_prefixes     = var.workloadSubneAddressSpace
 
 }
-
-resource "azurerm_subnet" "azcertheadlabgatewaysubnet" {
-  name                 = var.GatewaySubnetName
-  address_prefixes     = var.GatewaySubnetNameAddressSpace
-  resource_group_name  = azurerm_resource_group.azcerheadlabrg.name
-  virtual_network_name = azurerm_virtual_network.azcertheadlabvnet.name
-}
-resource "azurerm_subnet" "azcertheadfirewallsubnet" {
-  name                 = var.AzureFirewallSubnetName
-  address_prefixes     = var.AzureFirewallSubnetAddressSpace
-  resource_group_name  = azurerm_resource_group.azcerheadlabrg.name
-  virtual_network_name = azurerm_virtual_network.azcertheadlabvnet.name
-}
-resource "azurerm_subnet" "azcertheadfirewallmgmtsubnet" {
-  name                 = var.AzureFirewallManagmentSubnetName
-  address_prefixes     = var.AzureFirewallManagmentSubnetAddressSpace
-  resource_group_name  = azurerm_resource_group.azcerheadlabrg.name
-  virtual_network_name = azurerm_virtual_network.azcertheadlabvnet.name
-}
-

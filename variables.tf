@@ -21,51 +21,28 @@ variable "vnet1addressSpace" {
 
 }
 
-variable "workloadSubnetName" {
-  description = "Workload Subnet Name"
-  default     = "workloadsubnet"
 
+variable "subnets" {
+  type = map(any)
+  default = {
+    subnet1 = {
+      name = "workloadsubnet"
+      address_prefixes = ["192.168.0.0/26"]
+    }
+    subnet2 = {
+      name             = "GatewaySubnet"
+      address_prefixes = ["192.168.0.64/26"]
+    }
+    subnet3 = {
+      name             = "AzureFirewallSubnetName"
+      address_prefixes = ["192.168.0.128/26"]
+    }
+    subnet4 = {
+      name             = "AzureFirewallManagementSubnet"
+      address_prefixes = ["192.168.0.192/26"]
+    }
+  }
 }
 
-variable "workloadSubneAddressSpace" {
-  description = "Workload Subnet Address Space"
-  default     = ["192.168.0.0/26"]
+ 
 
-}
-
-variable "GatewaySubnetName" {
-  description = "Gateway Subnet Name"
-  default     = "GatewaySubnet"
-
-}
-
-variable "GatewaySubnetNameAddressSpace" {
-  description = "Gateway Subnet Address Space"
-  default     = ["192.168.0.64/26"]
-
-}
-
-variable "AzureFirewallSubnetName" {
-  description = "Name of the Azure FirewallSubnet"
-  default     = "AzureFirewallSubnet"
-
-}
-
-variable "AzureFirewallSubnetAddressSpace" {
-  description = "Address Space of AzureFirewall Subnet"
-  default     = ["192.168.0.128/26"]
-
-}
-
-
-variable "AzureFirewallManagmentSubnetName" {
-  description = "Name of the Azure Firewall Managment Subnet"
-  default     = "AzureFirewallManagementSubnet"
-
-}
-
-variable "AzureFirewallManagmentSubnetAddressSpace" {
-  description = "Address Space of AzureFirewall Managment Subnet"
-  default     = ["192.168.0.192/26"]
-
-}
