@@ -20,10 +20,10 @@ resource "azurerm_virtual_network" "azcertheadlabvnet" {
 //Create Subnets
 
 resource "azurerm_subnet" "subnet_certheadlab" {
-  for_each = var.subnets
-  name = each.value["name"]
-  address_prefixes = each.value["address_prefixes"]
-  resource_group_name = azurerm_resource_group.azcerheadlabrg.name
+  for_each             = var.subnets
+  name                 = each.value["name"]
+  address_prefixes     = each.value["address_prefixes"]
+  resource_group_name  = azurerm_resource_group.azcerheadlabrg.name
   virtual_network_name = azurerm_virtual_network.azcertheadlabvnet.name
 
 }
